@@ -12,16 +12,23 @@ const stylesHandler = isProduction
 
 const config = {
   entry: './src/index.js',
+  devtool: 'source-map',
   output: {
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: {
+      keep: /assets/, // Keep these assets under 'ignored/dir'.
+    },
   },
   devServer: {
     open: true,
     host: 'localhost',
+    static: './dist',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      // template: 'index.html',
+      title: 'virtual-keyboard',
     }),
 
     // Add your plugins here
