@@ -1,25 +1,26 @@
 // console.log('index.js');
 import './main.scss';
-import { appComponent } from './components/appComponent';
-import { textareaComponent } from './components/textareaComponent';
-import { keyboardComponent } from './components/keyboardComponent';
-import { footerComponent } from './components/footerComponent';
+import { app } from './components/appElement';
+import { textarea } from './components/textareaElement';
+import { keyboard } from './components/keyboardElement';
+import { footer } from './components/footerElement';
 
-import { keyLayout, keyLayoutNumber} from './data/keysData';
-console.log( keyLayout);
+import {
+  keyLayout,
+  keyLayoutNumber,
+} from './data/keysData';
 
-
-
-import { setKeys } from './core/setKeys';
+import { keysLayoutComponent } from './components/keysLayoutComponent';
 
 import { appendElemToDOM } from './helpers/appendElemToDOM';
 
-const app = appComponent();
-const textarea = textareaComponent();
-const keyboard = keyboardComponent();
-const footer = footerComponent();
 
-appendElemToDOM(document.body, [app]);
+appendElemToDOM(document.body, app);
 appendElemToDOM(app, [textarea, keyboard, footer]);
 
-setKeys(keyLayout, keyLayoutNumber)
+const keysContainer = keysLayoutComponent(
+  keyLayout,
+  keyLayoutNumber
+);
+
+appendElemToDOM(keyboard, keysContainer);

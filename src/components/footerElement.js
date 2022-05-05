@@ -1,4 +1,4 @@
-export const footerComponent = () => {
+export const footer = (() => {
   const footer = document.createElement('div');
   footer.className = 'footer';
 
@@ -16,4 +16,4 @@ export const footerComponent = () => {
   footer.append(fragment);
 
   return footer;
-};
+})();
