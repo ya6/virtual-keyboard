@@ -41,7 +41,7 @@ const keypressHandler = (e) => {
     //  console.log(el);
     setTimeout(() => {
       el.classList.remove('virtual__key--pressed');
-    }, 100);
+    }, 400);
   }
 };
 const keydownHandler = (e) => {
@@ -58,6 +58,9 @@ const clickHandler = (e) => {
     textarea.focus();
     return;
   }
+
+//anim
+
   textarea.focus();
   const currentValue = textarea.value;
   const currentPosition = textarea.selectionStart;
@@ -75,16 +78,15 @@ const clickHandler = (e) => {
     currentValueLeft +
     e.target.dataset.name +
     currentValueRight;
-    textarea.setSelectionRange(currentPosition+1, currentPosition+1)
+  textarea.setSelectionRange(
+    currentPosition + 1,
+    currentPosition + 1
+  );
   // console.log(textarea.selectionStart);
 };
 
 // EVENTS
-document.body.addEventListener(
-  'keypress',
-  keypressHandler,
-  false
-);
+document.body.addEventListener('keypress', keypressHandler);
 
 document.body.addEventListener('keydown', keydownHandler);
 document.body.addEventListener('keyup', keyupHandler);
