@@ -12,7 +12,7 @@ const keyLayout = [
   ['0', ')', '0', ')'],
   ['-', '_', '-', '_'],
   ['=', '+', '=', '+'],
-  ['Backspace', 'Backspace', 'Backspace', 'Backspace'],
+  ['Back&thinsp;space', 'Back&thinsp;space', 'Back&thinsp;space', 'Back&thinsp;space'],
   ['Tab', 'Tab', 'Tab', 'Tab'],
   ['q', 'Q', 'й', 'Й'],
   ['w', 'W', 'ц', 'Ц'],
@@ -37,9 +37,9 @@ const keyLayout = [
   ['j', 'J', 'о', 'О'],
   ['k', 'K', 'л', 'Л'],
   ['l', 'L', 'д', 'Д'],
-  [';', ':', ';', ':'],
-  ["'", '"', ';', ':'],
-  ['\\', '|', ';', ':'],
+  [';', ':', 'ж', 'Ж'],
+  ["'", '"', 'э', 'Э'],
+  ['\\', '|', '\\', '/'],
   ['Enter', 'Enter', 'Enter', 'Enter'],
   [' Shift ', ' Shift ', ' Shift ', ' Shift '],
   ['z', 'Z', 'я', 'Я'],
@@ -65,6 +65,6 @@ const keyLayout = [
   ['&#9658', '&#9658', '&#9658', '&#9658'],
   
 ];
-let keyLayoutNumber = 0;
 
-export { keyLayout, keyLayoutNumber };
+
+export { keyLayout };

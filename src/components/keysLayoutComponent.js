@@ -8,15 +8,16 @@ export const keysLayoutComponent = (
 ) => {
   const keyboardKeys = document.createElement('div');
   keyboardKeys.className = 'keyboard__keys';
-  keyboardKeys.innerHTML = '';
+  // keyboardKeys.innerHTML = '';
 
   let keysArr = [];
   const spaceButton = ' ';
   // const iconButton = [];
 
-  const LineBreak = ['Backspace', 'Del', 'Enter', 'Shift'];
+  const LineBreak = ['Back&thinsp;space', 'Del', 'Enter', 'Shift'];
   const longButton = [
-    'Backspace',
+    // 'Backspace',
+    'Back&thinsp;space',
     'Tab',
     'Del',
     'Caps Lock',
@@ -43,15 +44,21 @@ export const keysLayoutComponent = (
       if ( longButton.some((el) => el === elem[keyLayoutNumber])) {
         
       }
+      wideButton.setAttribute('data-name', elem[keyLayoutNumber]);
       keysArr.push(wideButton);
     } else if (elem[keyLayoutNumber] === spaceButton) { //space
       const wideButton = buttonComponent(
         elem[keyLayoutNumber]
       );
       wideButton.classList.add('keyboard__key--extra-wide');
+      wideButton.setAttribute('data-name', elem[keyLayoutNumber]);
       keysArr.push(wideButton);
     } else {
-      keysArr.push(buttonComponent(elem[keyLayoutNumber])); //all
+      const wideButton = buttonComponent(
+        elem[keyLayoutNumber]
+      );
+      wideButton.setAttribute('data-name', elem[keyLayoutNumber]);
+      keysArr.push(wideButton); //all
     }
 
     if (
