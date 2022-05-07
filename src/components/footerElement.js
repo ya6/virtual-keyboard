@@ -11,7 +11,7 @@ export const footer = (() => {
   const langTitle = document.createElement('div');
   langTitle.className = 'descriptions';
   langTitle.textContent =
-    'To switch the language combination: left ctrl + alt';
+    'To switch the language press left:  ctrl + alt';
   fragment.append(osTitle, langTitle);
   footer.append(fragment);
 

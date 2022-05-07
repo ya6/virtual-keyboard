@@ -51,49 +51,54 @@ const keypressHandler = (e) => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
+  console.log(e)
 
   if (
     e.code === 'ControlLeft' ||
-    e.code === 'ControlLeft'
+    e.code === 'AltLeft'
   ) {
-    layout.lang = layout.lang === 'en' ? 'ru' : 'en';
+    if (e.altKey && e.ctrlKey) {
+      
+      layout.lang = layout.lang === 'en' ? 'ru' : 'en';
 
-    switch (layout.number) {
-      case 0:
-        layout.number = 2;
-        break;
-      case 2:
-        layout.number = 0;
-        break;
-      case 1:
-        layout.number = 3;
-        break;
-
-      case 3:
-        layout.number = 1;
-        break;
-    }
-
-    delElemFromDOM(keysContainer);
-    keysContainer = keysLayoutComponent(
-      keyLayout,
-      layout.number
-    );
-    appendElemToDOM(keyboard, keysContainer);
-    const el1 = document.querySelector(
-      `[data-name="Shift"]`
-    );
-    if (layout.rightShift == 1) {
-      document
-        .querySelector(`[data-name="Shift"]`)
-        .classList.add('virtual__key--permanent-pressed');
-    }
-    if (layout.leftShift == 1) {
-      document
-        .querySelector(`[data-name=" Shift "]`)
-        .classList.add('virtual__key--permanent-pressed');
+      switch (layout.number) {
+        case 0:
+          layout.number = 2;
+          break;
+        case 2:
+          layout.number = 0;
+          break;
+        case 1:
+          layout.number = 3;
+          break;
+  
+        case 3:
+          layout.number = 1;
+          break;
+      }
+  
+      delElemFromDOM(keysContainer);
+      keysContainer = keysLayoutComponent(
+        keyLayout,
+        layout.number
+      );
+      appendElemToDOM(keyboard, keysContainer);
+      const el1 = document.querySelector(
+        `[data-name="Shift"]`
+      );
+      if (layout.rightShift == 1) {
+        document
+          .querySelector(`[data-name="Shift"]`)
+          .classList.add('virtual__key--permanent-pressed');
+      }
+      if (layout.leftShift == 1) {
+        document
+          .querySelector(`[data-name=" Shift "]`)
+          .classList.add('virtual__key--permanent-pressed');
+      }
     }
   }
+
   switch (currentKey) {
     case 'ShiftLeft':
       if (layout.leftShift === 1) {
@@ -162,10 +167,20 @@ const keydownHandler = (e) => {
       break;
 
     case 'CapsLock':
-      if (layout.number === 1) {
-        layout.number = 0;
-      } else if (layout.number === 0) {
-        layout.number = 1;
+     switch (layout.number) {
+        case 0:
+          layout.number = 1;
+          break;
+        case 1:
+          layout.number = 0;
+          break;
+        case 2:
+          layout.number = 3;
+          break;
+
+        case 3:
+          layout.number = 2;
+          break;
       }
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
