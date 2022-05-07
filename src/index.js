@@ -31,12 +31,8 @@ appendElemToDOM(keyboard, keysContainer);
 
 // HANDLERS
 const keypressHandler = (e) => {
-  // console.log('keypressHandler', e);
   if (e.keyCode) {
     textarea.focus();
-    // if (textarea.value === '') {
-    //   textarea.value = e.key;
-    // }
     const el = document.querySelector(
       `[data-name="${e.key}"]`
     );
@@ -49,14 +45,6 @@ const keypressHandler = (e) => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-
-  console.log(e);
-  console.log(currentKey);
-
-  // console.log('->',e.code);
-  // console.log('-->', e.keyCode);
-  // console.log('-->', e.key);
-  // console.log('-->', e.charCode);
   switch (currentKey) {
     case 'ShiftLeft':
       if (layout.number === 1) {
@@ -207,9 +195,7 @@ const keyupHandler = (e) => {
 };
 
 const clickHandler = (e) => {
-  console.log('clickHandler');
   let currentKey = e.target.dataset.name;
-  console.log(e.target);
   if (e.target.tagName !== 'BUTTON') {
     textarea.focus();
     return;
@@ -283,8 +269,6 @@ const clickHandler = (e) => {
       break;
 
     case '&#9668': //left
-      console.log(textarea.selectionStart);
-      console.log(textarea.value.length);
       if (textarea.selectionStart > 0) {
         textarea.setSelectionRange(
           textarea.selectionStart - 1,
@@ -309,8 +293,6 @@ const clickHandler = (e) => {
       break;
 
     case 'Back&thinsp;space':
-      console.log(textarea.selectionStart);
-      console.log(textarea.selectionEnd);
       let newValue = textarea.value;
       let startPosition = textarea.selectionStart;
       let endPosition = textarea.selectionEnd;
@@ -351,25 +333,29 @@ const clickHandler = (e) => {
       break;
 
     case 'Del':
-      console.log(textarea.selectionStart);
-      console.log(textarea.selectionEnd);
       let newValue1 = textarea.value;
       let startPosition1 = textarea.selectionStart;
       let endPosition1 = textarea.selectionEnd;
 
-      const currentValueLeft1 = newValue1.slice(
+      let currentValueLeft1 = newValue1.slice(
         0,
         startPosition1
       );
-      const currentValueRight1 = newValue1.slice(
+      let currentValueRight1 = newValue1.slice(
         endPosition1,
         newValue1.length
       );
 
       if (startPosition1 === endPosition1) {
-        textarea.value = currentValueLeft1;
+        currentValueRight1 = currentValueRight1.slice(
+          1,
+          currentValueRight1.length
+        );
+        textarea.value =
+          currentValueLeft1 + currentValueRight1;
       } else {
-        textarea.value = currentValueLeft1+currentValueRight1
+        textarea.value =
+          currentValueLeft1 + currentValueRight1;
       }
 
       textarea.setSelectionRange(
