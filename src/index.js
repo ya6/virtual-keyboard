@@ -13,6 +13,7 @@ import { appendElemToDOM } from './helpers/appendElemToDOM';
 import { delElemFromDOM } from './helpers/delElemFromDOM';
 import { findAndAddClass } from './helpers/findAndAddClass';
 import { findAndRemoveClass } from './helpers/findAndRemoveClass';
+import { insertToTextarea } from './helpers/insertToTextarea';
 
 // INIT
 
@@ -206,129 +207,86 @@ const keyupHandler = (e) => {
 };
 
 const clickHandler = (e) => {
+  console.log('clickHandler');
   let currentKey = e.target.dataset.name;
   if (e.target.tagName !== 'BUTTON') {
     textarea.focus();
     return;
   }
 
+  switch (currentKey) {
+    case ' Shift ':
+      if (layout.number === 0) {
+        layout.number = 1;
+      } else if (layout.number === 1) {
+        layout.number = 0;
+      }
+      delElemFromDOM(keysContainer);
+      keysContainer = keysLayoutComponent(
+        keyLayout,
+        layout.number
+      );
+      appendElemToDOM(keyboard, keysContainer);
+      const el = document.querySelector(
+        `[data-name=" Shift "]`
+      );
+      if (layout.number == 1 || layout.number == 3) {
+        el.classList.add('virtual__key--permanent-pressed');
+      }
+      break;
 
-switch (currentKey) {
-
-  //todo => set one flow
-  case value:
-    
-    break;
-
-  default:
-    break;
-}
-
-
-
-  if (
-    currentKey.length > 1 &&
-    currentKey != 'Tab' &&
-    currentKey != 'Enter'
-  ) {
-    switch (
-      currentKey //special
-    ) {
-      case ' Shift ':
-        if (layout.number === 0) {
-          layout.number = 1;
-        } else if (layout.number === 1) {
-          layout.number = 0;
-        }
-        delElemFromDOM(keysContainer);
-        keysContainer = keysLayoutComponent(
-          keyLayout,
-          layout.number
+    case 'Shift':
+      if (layout.number === 0) {
+        layout.number = 1;
+      } else if (layout.number === 1) {
+        layout.number = 0;
+      }
+      delElemFromDOM(keysContainer);
+      keysContainer = keysLayoutComponent(
+        keyLayout,
+        layout.number
+      );
+      appendElemToDOM(keyboard, keysContainer);
+      const el1 = document.querySelector(
+        `[data-name="Shift"]`
+      );
+      if (layout.number == 1 || layout.number == 3) {
+        el1.classList.add(
+          'virtual__key--permanent-pressed'
         );
-        appendElemToDOM(keyboard, keysContainer);
-        const el = document.querySelector(
-          `[data-name=" Shift "]`
-        );
-        if (layout.number == 1 || layout.number == 3) {
-          el.classList.add(
-            'virtual__key--permanent-pressed'
-          );
-        }
-        break;
+      }
+      break;
 
-      case 'Shift':
-        if (layout.number === 0) {
-          layout.number = 1;
-        } else if (layout.number === 1) {
-          layout.number = 0;
-        }
-        delElemFromDOM(keysContainer);
-        keysContainer = keysLayoutComponent(
-          keyLayout,
-          layout.number
-        );
-        appendElemToDOM(keyboard, keysContainer);
-        const el1 = document.querySelector(
-          `[data-name="Shift"]`
-        );
-        if (layout.number == 1 || layout.number == 3) {
-          el1.classList.add(
-            'virtual__key--permanent-pressed'
-          );
-        }
-        break;
+    case 'Caps Lock':
+      if (layout.number === 0) {
+        layout.number = 1;
+      } else if (layout.number === 1) {
+        layout.number = 0;
+      }
+      delElemFromDOM(keysContainer);
+      keysContainer = keysLayoutComponent(
+        keyLayout,
+        layout.number
+      );
+      appendElemToDOM(keyboard, keysContainer);
+      break;
 
-      case 'Caps Lock':
-        if (layout.number === 0) {
-          layout.number = 1;
-        } else if (layout.number === 1) {
-          layout.number = 0;
-        }
-        delElemFromDOM(keysContainer);
-        keysContainer = keysLayoutComponent(
-          keyLayout,
-          layout.number
-        );
-        appendElemToDOM(keyboard, keysContainer);
-        break;
-
-      // case 'Tab':
-      //   currentKey = '&#9;----'
-      //   break;
-
-      default:
-        break;
-    }
-  } else {
-    if (currentKey === 'Tab') {
+    case 'Tab':
       currentKey = `\t`;
-    }
+      insertToTextarea(textarea, currentKey);
+      break;
 
-    if (currentKey === 'Enter') {
+    case 'Enter':
       currentKey = `\r\n`;
-    }
+      insertToTextarea(textarea, currentKey);
+      break;
 
-    console.log(currentKey);
-    // textarea
-    textarea.focus();
-    const currentValue = textarea.value;
-    const currentPosition = textarea.selectionStart;
-
-    const currentValueLeft = currentValue.slice(
-      0,
-      currentPosition
-    );
-    const currentValueRight = currentValue.slice(
-      currentPosition,
-      currentValue.length
-    );
-    textarea.value =
-      currentValueLeft + currentKey + currentValueRight;
-    textarea.setSelectionRange(
-      currentPosition + 1,
-      currentPosition + 1
-    );
+    default:
+      insertToTextarea(textarea, currentKey);
+      break;
   }
+
+  textarea.focus();
 };
 
 const mousedownHandler = (e) => {
