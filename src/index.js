@@ -104,11 +104,10 @@ const keydownHandler = (e) => {
       findAndAddClass('Caps Lock');
       break;
 
-      
     case 'ControlLeft':
       findAndAddClass(' Ctrl ');
       break;
-      
+
     case 'ControlRight':
       findAndAddClass('Ctrl');
       break;
@@ -125,7 +124,17 @@ const keydownHandler = (e) => {
       findAndAddClass('Alt');
       break;
 
+    case 'Backspace':
+      findAndAddClass('Back&thinsp;space');
+      break;
 
+    case 'Delete':
+      findAndAddClass('Del');
+      break;
+
+    case 'Enter':
+      findAndAddClass('Enter');
+      break;
 
     default:
       break;
@@ -173,11 +182,22 @@ const keyupHandler = (e) => {
       break;
 
     case 'AltLeft':
-      findAndRemoveClass( ' Alt ');
+      findAndRemoveClass(' Alt ');
       break;
 
     case 'AltRight':
       findAndRemoveClass('Alt');
+      break;
+
+    case 'Backspace':
+      findAndRemoveClass('Back&thinsp;space');
+      break;
+
+    case 'Delete':
+      findAndRemoveClass('Del');
+      break;
+    case 'Enter':
+      findAndRemoveClass('Enter');
       break;
 
     default:
@@ -192,7 +212,25 @@ const clickHandler = (e) => {
     return;
   }
 
-  if (currentKey.length > 1 && currentKey!='Tab') {
+
+switch (currentKey) {
+
+  //todo => set one flow
+  case value:
+    
+    break;
+
+  default:
+    break;
+}
+
+
+
+  if (
+    currentKey.length > 1 &&
+    currentKey != 'Tab' &&
+    currentKey != 'Enter'
+  ) {
     switch (
       currentKey //special
     ) {
@@ -254,19 +292,23 @@ const clickHandler = (e) => {
         appendElemToDOM(keyboard, keysContainer);
         break;
 
-     
-
-        // case 'Tab':
-        //   currentKey = '&#9;----'
-        //   break;
+      // case 'Tab':
+      //   currentKey = '&#9;----'
+      //   break;
 
       default:
         break;
     }
   } else {
     if (currentKey === 'Tab') {
-      currentKey =`\t`
+      currentKey = `\t`;
     }
+
+    if (currentKey === 'Enter') {
+      currentKey = `\r\n`;
+    }
+
+    console.log(currentKey);
     // textarea
     textarea.focus();
     const currentValue = textarea.value;
