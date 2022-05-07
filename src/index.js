@@ -49,8 +49,6 @@ const keypressHandler = (e) => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-  console.log(e);
-  console.log(currentKey);
 
   if (
     e.code === 'ControlLeft' ||
@@ -168,7 +166,7 @@ const keydownHandler = (e) => {
       break;
 
     case 'Backspace':
-      findAndAddClass('Back&thinsp;space');
+      findAndAddClass('Back space');
       break;
 
     case 'Delete':
@@ -233,7 +231,7 @@ const keyupHandler = (e) => {
       break;
 
     case 'Backspace':
-      findAndRemoveClass('Back&thinsp;space');
+      findAndRemoveClass('Back space');
       break;
 
     case 'Delete':
@@ -394,7 +392,7 @@ const clickHandler = (e) => {
       insertToTextarea(textarea, '▼');
       break;
 
-    case 'Back&thinsp;space':
+    case 'Back space':
       let newValue = textarea.value;
       let startPosition = textarea.selectionStart;
       let endPosition = textarea.selectionEnd;

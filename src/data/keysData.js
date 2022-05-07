@@ -12,7 +12,7 @@ const keyLayout = [
   ['0', ')', '0', ')'],
   ['-', '_', '-', '_'],
   ['=', '+', '=', '+'],
-  ['Back&thinsp;space', 'Back&thinsp;space', 'Back&thinsp;space', 'Back&thinsp;space'],
+  ['Back space', 'Back space', 'Back space', 'Back space'],
   ['Tab', 'Tab', 'Tab', 'Tab'],
   ['q', 'Q', 'й', 'Й'],
   ['w', 'W', 'ц', 'Ц'],

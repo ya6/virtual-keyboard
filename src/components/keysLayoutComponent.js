@@ -14,10 +14,10 @@ export const keysLayoutComponent = (
   const spaceButton = ' ';
   // const iconButton = [];
 
-  const LineBreak = ['Back&thinsp;space', 'Del', 'Enter', 'Shift'];
+  const LineBreak = ['Back space', 'Del', 'Enter', 'Shift'];
   const longButton = [
     // 'Backspace',
-    'Back&thinsp;space',
+    'Back space',
     'Tab',
     'Del',
     'Caps Lock',
