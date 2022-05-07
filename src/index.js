@@ -37,12 +37,14 @@ appendElemToDOM(keyboard, keysContainer);
 const keypressHandler = (e) => {
   if (e.keyCode) {
     textarea.focus();
-    const el = document.querySelector(
-      `[data-name="${e.key}"]`
-    );
-    el.classList.add('virtual__key--pressed');
+
+    document
+      .querySelector(`[data-name="${e.key}"]`)
+      .classList.add('virtual__key--pressed');
     setTimeout(() => {
-      el.classList.remove('virtual__key--pressed');
+      document
+        .querySelector(`[data-name="${e.key}"]`)
+        .classList.remove('virtual__key--pressed');
     }, 400);
   }
 };
@@ -94,16 +96,29 @@ const keydownHandler = (e) => {
   }
   switch (currentKey) {
     case 'ShiftLeft':
-      if (layout.number === 1 || layout.number === 3) {
+      if (layout.leftShift === 1) {
         break;
       }
-      if (layout.number === 0) {
-        layout.number = 1;
+      if (layout.rightShift === 1) {
+        break;
       }
 
-      if (layout.number === 2) {
-        layout.number = 3;
+      switch (layout.number) {
+        case 0:
+          layout.number = 1;
+          break;
+        case 1:
+          layout.number = 0;
+          break;
+        case 2:
+          layout.number = 3;
+          break;
+
+        case 3:
+          layout.number = 2;
+          break;
       }
+      layout.leftShift = 1;
 
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
@@ -115,12 +130,28 @@ const keydownHandler = (e) => {
       break;
 
     case 'ShiftRight':
-      if (layout.number === 1) {
+      if (layout.rightShift === 1) {
         break;
       }
-      if (layout.number === 0) {
-        layout.number = 1;
+      if (layout.leftShift === 1) {
+        break;
       }
+      switch (layout.number) {
+        case 0:
+          layout.number = 1;
+          break;
+        case 1:
+          layout.number = 0;
+          break;
+        case 2:
+          layout.number = 3;
+          break;
+
+        case 3:
+          layout.number = 2;
+          break;
+      }
+      layout.rightShift = 1;
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
@@ -185,9 +216,24 @@ const keyupHandler = (e) => {
   const currentKey = e.code;
   switch (currentKey) {
     case 'ShiftLeft':
-      if (layout.number === 1) {
-        layout.number = 0;
+      layout.leftShift = 0;
+
+      switch (layout.number) {
+        case 0:
+          layout.number = 1;
+          break;
+        case 1:
+          layout.number = 0;
+          break;
+        case 2:
+          layout.number = 3;
+          break;
+
+        case 3:
+          layout.number = 2;
+          break;
       }
+
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
@@ -197,7 +243,24 @@ const keyupHandler = (e) => {
       break;
 
     case 'ShiftRight':
-      layout.number = layout.lang = 'en' ? 0 : 2;
+      layout.rightShift = 0;
+
+      switch (layout.number) {
+        case 0:
+          layout.number = 1;
+          break;
+        case 1:
+          layout.number = 0;
+          break;
+        case 2:
+          layout.number = 3;
+          break;
+
+        case 3:
+          layout.number = 2;
+          break;
+      }
+
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
@@ -258,22 +321,27 @@ const clickHandler = (e) => {
       switch (layout.number) {
         case 0:
           layout.number = 1;
-          layout.leftShift = 1;
+
           break;
         case 1:
           layout.number = 0;
-          layout.leftShift = 0;
+
           break;
 
         case 2:
           layout.number = 3;
-          layout.leftShift = 1;
+
           break;
 
         case 3:
           layout.number = 2;
-          layout.leftShift = 0;
+
           break;
+      }
+
+      layout.leftShift = layout.leftShift === 1 ? 0 : 1;
+      if (layout.leftShift === 1) {
+        layout.rightShift = 0;
       }
 
       delElemFromDOM(keysContainer);
@@ -283,7 +351,7 @@ const clickHandler = (e) => {
       );
       appendElemToDOM(keyboard, keysContainer);
 
-      if (layout.leftShift == 1) {
+      if (layout.leftShift === 1) {
         document
           .querySelector(`[data-name=" Shift "]`)
           .classList.add('virtual__key--permanent-pressed');
@@ -291,27 +359,30 @@ const clickHandler = (e) => {
       break;
 
     case 'Shift':
-
-    case 'Shift':
       switch (layout.number) {
         case 0:
           layout.number = 1;
-          layout.rightShift = 1;
+
           break;
         case 1:
           layout.number = 0;
-          layout.rightShift = 0;
+
           break;
 
         case 2:
           layout.number = 3;
-          layout.rightShift = 1;
+
           break;
 
         case 3:
           layout.number = 2;
-          layout.rightShift = 0;
+
           break;
+      }
+
+      layout.rightShift = layout.rightShift === 1 ? 0 : 1;
+      if (layout.rightShift === 1) {
+        layout.leftShift = 0;
       }
 
       delElemFromDOM(keysContainer);
@@ -321,7 +392,7 @@ const clickHandler = (e) => {
       );
       appendElemToDOM(keyboard, keysContainer);
 
-      if (layout.rightShift == 1) {
+      if (layout.rightShift === 1) {
         document
           .querySelector(`[data-name="Shift"]`)
           .classList.add('virtual__key--permanent-pressed');
@@ -356,6 +427,16 @@ const clickHandler = (e) => {
         layout.number
       );
       appendElemToDOM(keyboard, keysContainer);
+      if (layout.leftShift === 1) {
+        document
+          .querySelector(`[data-name=" Shift "]`)
+          .classList.add('virtual__key--permanent-pressed');
+      }
+      if (layout.rightShift === 1) {
+        document
+          .querySelector(`[data-name="Shift"]`)
+          .classList.add('virtual__key--permanent-pressed');
+      }
       break;
 
     case 'Tab':
@@ -463,6 +544,21 @@ const clickHandler = (e) => {
         startPosition1
       );
 
+      break;
+
+    case ' Alt ':
+      break;
+
+    case 'Alt':
+      break;
+
+    case 'Win':
+      break;
+
+    case ' Ctrl ':
+      break;
+
+    case 'Ctrl':
       break;
 
     default:
