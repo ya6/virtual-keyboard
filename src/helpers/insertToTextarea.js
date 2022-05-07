@@ -13,8 +13,8 @@ export const insertToTextarea = (textarea, insertion) => {
   textarea.value = currentValueLeft + insertion + currentValueRight;
 
   textarea.setSelectionRange(
-    currentPosition + 1,
-    currentPosition + 1
+    currentPosition + insertion.length,
+    currentPosition + insertion.length
   );
   
 

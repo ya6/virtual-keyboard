@@ -209,6 +209,7 @@ const keyupHandler = (e) => {
 const clickHandler = (e) => {
   console.log('clickHandler');
   let currentKey = e.target.dataset.name;
+  console.log(e.target);
   if (e.target.tagName !== 'BUTTON') {
     textarea.focus();
     return;
@@ -281,6 +282,103 @@ const clickHandler = (e) => {
       insertToTextarea(textarea, currentKey);
       break;
 
+    case '&#9668': //left
+      console.log(textarea.selectionStart);
+      console.log(textarea.value.length);
+      if (textarea.selectionStart > 0) {
+        textarea.setSelectionRange(
+          textarea.selectionStart - 1,
+          textarea.selectionStart - 1
+        );
+      }
+
+      break;
+    case '&#9658':
+      textarea.setSelectionRange(
+        textarea.selectionStart + 1,
+        textarea.selectionStart + 1
+      );
+      break;
+
+    case '&#9650':
+      insertToTextarea(textarea, '▲');
+      break;
+
+    case '&#9660':
+      insertToTextarea(textarea, '▼');
+      break;
+
+    case 'Back&thinsp;space':
+      console.log(textarea.selectionStart);
+      console.log(textarea.selectionEnd);
+      let newValue = textarea.value;
+      let startPosition = textarea.selectionStart;
+      let endPosition = textarea.selectionEnd;
+
+      let currentValueLeft = newValue.slice(
+        0,
+        startPosition
+      );
+      let currentValueRight = newValue.slice(
+        endPosition,
+        newValue.length
+      );
+      if (startPosition === endPosition) {
+        currentValueLeft = currentValueLeft.slice(
+          0,
+          currentValueLeft.length - 1
+        );
+        textarea.value =
+          currentValueLeft + currentValueRight;
+        textarea.setSelectionRange(
+          startPosition - 1,
+          startPosition - 1
+        );
+      } else {
+        textarea.value =
+          currentValueLeft + currentValueRight;
+        textarea.setSelectionRange(
+          startPosition,
+          startPosition
+        );
+      }
+
+      textarea.setSelectionRange(
+        startPosition - 1,
+        startPosition - 1
+      );
+
+      break;
+
+    case 'Del':
+      console.log(textarea.selectionStart);
+      console.log(textarea.selectionEnd);
+      let newValue1 = textarea.value;
+      let startPosition1 = textarea.selectionStart;
+      let endPosition1 = textarea.selectionEnd;
+
+      const currentValueLeft1 = newValue1.slice(
+        0,
+        startPosition1
+      );
+      const currentValueRight1 = newValue1.slice(
+        endPosition1,
+        newValue1.length
+      );
+
+      if (startPosition1 === endPosition1) {
+        textarea.value = currentValueLeft1;
+      } else {
+        textarea.value = currentValueLeft1+currentValueRight1
+      }
+
+      textarea.setSelectionRange(
+        startPosition1,
+        startPosition1
+      );
+
+      break;
+
     default:
       insertToTextarea(textarea, currentKey);
       break;
@@ -289,18 +387,7 @@ const clickHandler = (e) => {
   textarea.focus();
 };
 
-const mousedownHandler = (e) => {
-  // if (e.target.tagName !== 'BUTTON') {
-  //   return;
-  // }
-  // const currentKey = e.target
-  // switch (currentKey) {
-  //   case 'CapsLock':
-  //     break;
-  //   default:
-  //     break;
-  // }
-};
+const mousedownHandler = (e) => {};
 
 const mouseupHandler = (e) => {};
 
