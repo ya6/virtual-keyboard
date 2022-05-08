@@ -16,13 +16,26 @@ import { findAndRemoveClass } from './helpers/findAndRemoveClass';
 import { insertToTextarea } from './helpers/insertToTextarea';
 
 // INIT
-let layout = {
+const layout = {
   lang: 'en',
   number: 0,
   leftShift: 0,
   rightShift: 0,
 };
 
+if (
+  window.localStorage.getItem('lang') === null &&
+  window.localStorage.getItem('number') === null
+) {
+  const { lang, number } = layout;
+  window.localStorage.setItem('lang', lang);
+  window.localStorage.setItem('number', number);
+} else {
+  layout.lang = window.localStorage.getItem('lang');
+  layout.number = +window.localStorage.getItem('number');
+}
+
+appendElemToDOM(document.body, app);
 appendElemToDOM(document.body, app);
 appendElemToDOM(app, [textarea, keyboard, footer]);
 
@@ -51,16 +64,10 @@ const keypressHandler = (e) => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-  console.log(e)
 
-  if (
-    e.code === 'ControlLeft' ||
-    e.code === 'AltLeft'
-  ) {
+  if (e.code === 'ControlLeft' || e.code === 'AltLeft') {
     if (e.altKey && e.ctrlKey) {
-      
       layout.lang = layout.lang === 'en' ? 'ru' : 'en';
-
       switch (layout.number) {
         case 0:
           layout.number = 2;
@@ -71,12 +78,12 @@ const keydownHandler = (e) => {
         case 1:
           layout.number = 3;
           break;
-  
+
         case 3:
           layout.number = 1;
           break;
       }
-  
+      
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
@@ -96,6 +103,9 @@ const keydownHandler = (e) => {
           .querySelector(`[data-name=" Shift "]`)
           .classList.add('virtual__key--permanent-pressed');
       }
+      const { lang, number } = layout;
+      window.localStorage.setItem('lang', lang);
+      window.localStorage.setItem('number', number);
     }
   }
 
@@ -167,7 +177,7 @@ const keydownHandler = (e) => {
       break;
 
     case 'CapsLock':
-     switch (layout.number) {
+      switch (layout.number) {
         case 0:
           layout.number = 1;
           break;
