@@ -24,8 +24,8 @@ const layout = {
 };
 
 if (
-  window.localStorage.getItem('lang') === null &&
-  window.localStorage.getItem('number') === null
+  window.localStorage.getItem('lang') === null
+  && window.localStorage.getItem('number') === null
 ) {
   const { lang, number } = layout;
   window.localStorage.setItem('lang', lang);
@@ -41,7 +41,7 @@ appendElemToDOM(app, [textarea, keyboard, footer]);
 
 let keysContainer = keysLayoutComponent(
   keyLayout,
-  layout.number
+  layout.number,
 );
 
 appendElemToDOM(keyboard, keysContainer);
@@ -82,25 +82,26 @@ const keydownHandler = (e) => {
         case 3:
           layout.number = 1;
           break;
+
+        default:
+          break;
       }
-      
+
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
-      const el1 = document.querySelector(
-        `[data-name="Shift"]`
-      );
-      if (layout.rightShift == 1) {
+
+      if (layout.rightShift === 1) {
         document
-          .querySelector(`[data-name="Shift"]`)
+          .querySelector('[data-name="Shift"]')
           .classList.add('virtual__key--permanent-pressed');
       }
-      if (layout.leftShift == 1) {
+      if (layout.leftShift === 1) {
         document
-          .querySelector(`[data-name=" Shift "]`)
+          .querySelector('[data-name=" Shift "]')
           .classList.add('virtual__key--permanent-pressed');
       }
       const { lang, number } = layout;
@@ -132,13 +133,16 @@ const keydownHandler = (e) => {
         case 3:
           layout.number = 2;
           break;
+
+        default:
+          break;
       }
       layout.leftShift = 1;
 
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
       findAndAddClass(' Shift ');
@@ -165,12 +169,15 @@ const keydownHandler = (e) => {
         case 3:
           layout.number = 2;
           break;
+
+        default:
+          break;
       }
       layout.rightShift = 1;
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
       findAndAddClass('Shift');
@@ -191,11 +198,14 @@ const keydownHandler = (e) => {
         case 3:
           layout.number = 2;
           break;
+
+        default:
+          break;
       }
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
       findAndAddClass('Caps Lock');
@@ -257,12 +267,15 @@ const keyupHandler = (e) => {
         case 3:
           layout.number = 2;
           break;
+
+        default:
+          break;
       }
 
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
       break;
@@ -284,12 +297,15 @@ const keyupHandler = (e) => {
         case 3:
           layout.number = 2;
           break;
+
+        default:
+          break;
       }
 
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
       break;
@@ -341,6 +357,19 @@ const clickHandler = (e) => {
     return;
   }
 
+  const newValue = textarea.value;
+  const startPosition = textarea.selectionStart;
+  const endPosition = textarea.selectionEnd;
+
+  let currentValueLeft = newValue.slice(
+    0,
+    startPosition,
+  );
+  let currentValueRight = newValue.slice(
+    endPosition,
+    newValue.length,
+  );
+
   switch (currentKey) {
     case ' Shift ':
       switch (layout.number) {
@@ -355,12 +384,13 @@ const clickHandler = (e) => {
 
         case 2:
           layout.number = 3;
-
           break;
 
         case 3:
           layout.number = 2;
+          break;
 
+        default:
           break;
       }
 
@@ -372,13 +402,13 @@ const clickHandler = (e) => {
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
 
       if (layout.leftShift === 1) {
         document
-          .querySelector(`[data-name=" Shift "]`)
+          .querySelector('[data-name=" Shift "]')
           .classList.add('virtual__key--permanent-pressed');
       }
       break;
@@ -391,17 +421,17 @@ const clickHandler = (e) => {
           break;
         case 1:
           layout.number = 0;
-
           break;
 
         case 2:
           layout.number = 3;
-
           break;
 
         case 3:
           layout.number = 2;
+          break;
 
+        default:
           break;
       }
 
@@ -413,13 +443,13 @@ const clickHandler = (e) => {
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
 
       if (layout.rightShift === 1) {
         document
-          .querySelector(`[data-name="Shift"]`)
+          .querySelector('[data-name="Shift"]')
           .classList.add('virtual__key--permanent-pressed');
       }
       break;
@@ -432,53 +462,53 @@ const clickHandler = (e) => {
           break;
         case 1:
           layout.number = 0;
-
           break;
 
         case 2:
           layout.number = 3;
-
           break;
 
         case 3:
           layout.number = 2;
+          break;
 
+        default:
           break;
       }
 
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
-        layout.number
+        layout.number,
       );
       appendElemToDOM(keyboard, keysContainer);
       if (layout.leftShift === 1) {
         document
-          .querySelector(`[data-name=" Shift "]`)
+          .querySelector('[data-name=" Shift "]')
           .classList.add('virtual__key--permanent-pressed');
       }
       if (layout.rightShift === 1) {
         document
-          .querySelector(`[data-name="Shift"]`)
+          .querySelector('[data-name="Shift"]')
           .classList.add('virtual__key--permanent-pressed');
       }
       break;
 
     case 'Tab':
-      currentKey = `\t`;
+      currentKey = '\t';
       insertToTextarea(textarea, currentKey);
       break;
 
     case 'Enter':
-      currentKey = `\r\n`;
+      currentKey = '\r\n';
       insertToTextarea(textarea, currentKey);
       break;
 
-    case '&#9668': //left
+    case '&#9668': // left
       if (textarea.selectionStart > 0) {
         textarea.setSelectionRange(
           textarea.selectionStart - 1,
-          textarea.selectionStart - 1
+          textarea.selectionStart - 1,
         );
       }
 
@@ -486,7 +516,7 @@ const clickHandler = (e) => {
     case '&#9658':
       textarea.setSelectionRange(
         textarea.selectionStart + 1,
-        textarea.selectionStart + 1
+        textarea.selectionStart + 1,
       );
       break;
 
@@ -499,74 +529,41 @@ const clickHandler = (e) => {
       break;
 
     case 'Back space':
-      let newValue = textarea.value;
-      let startPosition = textarea.selectionStart;
-      let endPosition = textarea.selectionEnd;
-
-      let currentValueLeft = newValue.slice(
-        0,
-        startPosition
-      );
-      let currentValueRight = newValue.slice(
-        endPosition,
-        newValue.length
-      );
       if (startPosition === endPosition) {
         currentValueLeft = currentValueLeft.slice(
           0,
-          currentValueLeft.length - 1
+          currentValueLeft.length - 1,
         );
-        textarea.value =
-          currentValueLeft + currentValueRight;
+        textarea.value = currentValueLeft + currentValueRight;
         textarea.setSelectionRange(
           startPosition - 1,
-          startPosition - 1
+          startPosition - 1,
         );
       } else {
-        textarea.value =
-          currentValueLeft + currentValueRight;
+        textarea.value = currentValueLeft + currentValueRight;
         textarea.setSelectionRange(
           startPosition,
-          startPosition
+          startPosition,
         );
       }
-
-      textarea.setSelectionRange(
-        startPosition - 1,
-        startPosition - 1
-      );
 
       break;
 
     case 'Del':
-      let newValue1 = textarea.value;
-      let startPosition1 = textarea.selectionStart;
-      let endPosition1 = textarea.selectionEnd;
 
-      let currentValueLeft1 = newValue1.slice(
-        0,
-        startPosition1
-      );
-      let currentValueRight1 = newValue1.slice(
-        endPosition1,
-        newValue1.length
-      );
-
-      if (startPosition1 === endPosition1) {
-        currentValueRight1 = currentValueRight1.slice(
+      if (startPosition === endPosition) {
+        currentValueRight = currentValueRight.slice(
           1,
-          currentValueRight1.length
+          currentValueRight.length,
         );
-        textarea.value =
-          currentValueLeft1 + currentValueRight1;
+        textarea.value = currentValueLeft + currentValueRight;
       } else {
-        textarea.value =
-          currentValueLeft1 + currentValueRight1;
+        textarea.value = currentValueLeft + currentValueRight;
       }
 
       textarea.setSelectionRange(
-        startPosition1,
-        startPosition1
+        startPosition,
+        startPosition,
       );
 
       break;
