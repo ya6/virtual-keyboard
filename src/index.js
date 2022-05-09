@@ -61,11 +61,6 @@ const keypressHandler = () => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-  console.log(currentKey);
-  // let currentEngKey = null;
-  // if (currentKey[0] === 'K' || currentKey[0] === 'D') { // for keys and digits
-  //   currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
-  // }
 
   switch (currentKey) {
     case 'ShiftLeft':
