@@ -1,7 +1,14 @@
-export const buttonComponent = (content) => {
-  const button = document.createElement('button');
-  button.className = 'keyboard__key';
-  button.setAttribute('type', 'button');
-  button.innerHTML = content;
-  return button;
-};
+export class buttonComponent {
+  setButton(content, addContent = null) {
+    const button = document.createElement('button');
+    button.className = 'keyboard__key';
+    button.setAttribute('type', 'button');
+    button.innerHTML = content;
+
+    const additionContent = document.createElement('div');
+    additionContent.className = 'keyboard__key_addition';
+    additionContent.textContent = addContent
+    button.append(additionContent)
+    return button;
+  }
+}

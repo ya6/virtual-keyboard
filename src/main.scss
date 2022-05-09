@@ -54,6 +54,8 @@
 }
 
 .keyboard__key {
+  display: block;
+  position: relative;
   height: 45px;
   width: 6%;
   max-width: 90px;
@@ -78,6 +80,13 @@
     width: 5.5%;
   }
   
+}
+
+.keyboard__key_addition {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  font-size: 12px;
 }
 
 .keyboard__key:active {
