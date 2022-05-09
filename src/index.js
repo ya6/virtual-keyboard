@@ -61,7 +61,6 @@ const keypressHandler = () => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-console.log(currentKey);
   switch (currentKey) {
     case 'ShiftLeft':
       if (layout.leftShift === 1) {
