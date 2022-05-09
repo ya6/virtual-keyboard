@@ -3,7 +3,7 @@ export class buttonComponent {
     const button = document.createElement('button');
     button.className = 'keyboard__key';
     button.setAttribute('type', 'button');
-    button.innerHTML = content;
+    button.textContent = content;
 
     const additionContent = document.createElement('div');
     additionContent.className = 'keyboard__key_addition';

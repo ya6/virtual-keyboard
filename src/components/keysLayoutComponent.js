@@ -28,10 +28,10 @@ export const keysLayoutComponent = (
     'Win',
     'Alt',
     ' Alt ',
-    '&#9650',
-    '&#9660',
-    '&#9668',
-    '&#9658',
+    '▲',
+    '▼',
+    '►',
+    '◄',
   ];
 let count = 0;
 let addContent = null;
@@ -74,6 +74,7 @@ const firstRow = 13;
        count++
       
       regularButton.setAttribute('data-name', elem[keyLayoutNumber]);
+      regularButton.setAttribute('data-enName', elem[0]);
       keysArr.push(regularButton); // all
     }
 

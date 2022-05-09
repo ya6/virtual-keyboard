@@ -21,6 +21,12 @@ const layout = {
   number: 0,
   leftShift: 0,
   rightShift: 0,
+  capsLock: 0,
+  leftCtrl: 0,
+  rightCtrl: 0,
+  leftAlt: 0,
+  rightAlt: 0,
+  leftCtrlAlt: 0,
 };
 
 if (
@@ -47,68 +53,13 @@ let keysContainer = keysLayoutComponent(
 appendElemToDOM(keyboard, keysContainer);
 
 // HANDLERS
-const keypressHandler = (e) => {
-  if (e.keyCode) {
-    textarea.focus();
-
-    document
-      .querySelector(`[data-name="${e.key}"]`)
-      .classList.add('virtual__key--pressed');
-    setTimeout(() => {
-      document
-        .querySelector(`[data-name="${e.key}"]`)
-        .classList.remove('virtual__key--pressed');
-    }, 400);
-  }
+const keypressHandler = () => {
+  textarea.focus();
 };
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-
-  if (e.code === 'ControlLeft' || e.code === 'AltLeft') {
-    if (e.altKey && e.ctrlKey) {
-      layout.lang = layout.lang === 'en' ? 'ru' : 'en';
-      switch (layout.number) {
-        case 0:
-          layout.number = 2;
-          break;
-        case 2:
-          layout.number = 0;
-          break;
-        case 1:
-          layout.number = 3;
-          break;
-
-        case 3:
-          layout.number = 1;
-          break;
-
-        default:
-          break;
-      }
-
-      delElemFromDOM(keysContainer);
-      keysContainer = keysLayoutComponent(
-        keyLayout,
-        layout.number,
-      );
-      appendElemToDOM(keyboard, keysContainer);
-
-      if (layout.rightShift === 1) {
-        document
-          .querySelector('[data-name="Shift"]')
-          .classList.add('virtual__key--permanent-pressed');
-      }
-      if (layout.leftShift === 1) {
-        document
-          .querySelector('[data-name=" Shift "]')
-          .classList.add('virtual__key--permanent-pressed');
-      }
-      const { lang, number } = layout;
-      window.localStorage.setItem('lang', lang);
-      window.localStorage.setItem('number', number);
-    }
-  }
+  const currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
 
   switch (currentKey) {
     case 'ShiftLeft':
@@ -184,6 +135,9 @@ const keydownHandler = (e) => {
       break;
 
     case 'CapsLock':
+      if (layout.capsLock === 1) {
+        break;
+      }
       switch (layout.number) {
         case 0:
           layout.number = 1;
@@ -202,6 +156,8 @@ const keydownHandler = (e) => {
         default:
           break;
       }
+
+      layout.capsLock = 1;
       delElemFromDOM(keysContainer);
       keysContainer = keysLayoutComponent(
         keyLayout,
@@ -212,10 +168,18 @@ const keydownHandler = (e) => {
       break;
 
     case 'ControlLeft':
+      if (layout.leftCtrl === 1) {
+        break;
+      }
+      layout.leftCtrl = 1;
       findAndAddClass(' Ctrl ');
       break;
 
     case 'ControlRight':
+      if (layout.rightCtrl === 1) {
+        break;
+      }
+      layout.rightCtrl = 1;
       findAndAddClass('Ctrl');
       break;
 
@@ -224,10 +188,18 @@ const keydownHandler = (e) => {
       break;
 
     case 'AltLeft':
+      if (layout.leftAlt === 1) {
+        break;
+      }
+      layout.leftAlt = 1;
       findAndAddClass(' Alt ');
       break;
 
     case 'AltRight':
+      if (layout.rightAlt === 1) {
+        break;
+      }
+      layout.rightAlt = 1;
       findAndAddClass('Alt');
       break;
 
@@ -243,15 +215,47 @@ const keydownHandler = (e) => {
       findAndAddClass('Enter');
       break;
 
+    case 'ArrowUp':
+      findAndAddClass('▲');
+      break;
+
+    case 'ArrowDown':
+      findAndAddClass('▼');
+      break;
+
+    case 'ArrowLeft':
+      findAndAddClass('◄');
+      break;
+
+    case 'ArrowRight':
+      findAndAddClass('►');
+      break;
+
     default:
+
+      if (document
+        .querySelector(`[data-enName="${currentEngKey}"]`)) {
+        document
+          .querySelector(`[data-enName="${currentEngKey}"]`)
+          .classList.add('virtual__key--pressed');
+      }
       break;
   }
+
+  if (e.code === 'ControlLeft' || e.code === 'AltLeft') {
+    if (e.altKey && e.ctrlKey) {
+      layout.leftCtrlAlt = 1;
+    }
+  }
 };
+
 const keyupHandler = (e) => {
   const currentKey = e.code;
+  const currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
   switch (currentKey) {
     case 'ShiftLeft':
       layout.leftShift = 0;
+      layout.leftCtrlAlt = 0;
 
       switch (layout.number) {
         case 0:
@@ -311,14 +315,64 @@ const keyupHandler = (e) => {
       break;
 
     case 'CapsLock':
+      layout.capsLock = 0;
       findAndRemoveClass('Caps Lock');
       break;
 
     case 'ControlLeft':
+      layout.leftCtrl = 0;
       findAndRemoveClass(' Ctrl ');
+
+      if (layout.leftCtrlAlt === 1) {
+        layout.leftCtrlAlt = 0;
+
+        layout.lang = layout.lang === 'en' ? 'ru' : 'en';
+        switch (layout.number) {
+          case 0:
+            layout.number = 2;
+            break;
+          case 2:
+            layout.number = 0;
+            break;
+          case 1:
+            layout.number = 3;
+            break;
+
+          case 3:
+            layout.number = 1;
+            break;
+
+          default:
+            break;
+        }
+
+        delElemFromDOM(keysContainer);
+        keysContainer = keysLayoutComponent(
+          keyLayout,
+          layout.number,
+        );
+        appendElemToDOM(keyboard, keysContainer);
+
+        if (layout.rightShift === 1) {
+          document
+            .querySelector('[data-name="Shift"]')
+            .classList.add('virtual__key--permanent-pressed');
+        }
+        if (layout.leftShift === 1) {
+          document
+            .querySelector('[data-name=" Shift "]')
+            .classList.add('virtual__key--permanent-pressed');
+        }
+
+        const { lang, number } = layout;
+        window.localStorage.setItem('lang', lang);
+        window.localStorage.setItem('number', number);
+      }
+
       break;
 
     case 'ControlRight':
+      layout.rightCtrl = 0;
       findAndRemoveClass('Ctrl');
       break;
 
@@ -327,10 +381,12 @@ const keyupHandler = (e) => {
       break;
 
     case 'AltLeft':
+      layout.leftAlt = 0;
       findAndRemoveClass(' Alt ');
       break;
 
     case 'AltRight':
+      layout.rightAlt = 0;
       findAndRemoveClass('Alt');
       break;
 
@@ -345,7 +401,31 @@ const keyupHandler = (e) => {
       findAndRemoveClass('Enter');
       break;
 
+    case 'ArrowUp':
+      findAndRemoveClass('▲');
+      break;
+
+    case 'ArrowDown':
+      findAndRemoveClass('▼');
+      break;
+
+    case 'ArrowLeft':
+      findAndRemoveClass('◄');
+      break;
+
+    case 'ArrowRight':
+      findAndRemoveClass('►');
+      break;
+
     default:
+
+      if (
+        document
+          .querySelector(`[data-enName="${currentEngKey}"]`)) {
+        document
+          .querySelector(`[data-enName="${currentEngKey}"]`)
+          .classList.remove('virtual__key--pressed');
+      }
       break;
   }
 };
@@ -504,7 +584,7 @@ const clickHandler = (e) => {
       insertToTextarea(textarea, currentKey);
       break;
 
-    case '&#9668': // left
+    case '◄': // left
       if (textarea.selectionStart > 0) {
         textarea.setSelectionRange(
           textarea.selectionStart - 1,
@@ -513,18 +593,18 @@ const clickHandler = (e) => {
       }
 
       break;
-    case '&#9658':
+    case '►':
       textarea.setSelectionRange(
         textarea.selectionStart + 1,
         textarea.selectionStart + 1,
       );
       break;
 
-    case '&#9650':
+    case '▲':
       insertToTextarea(textarea, '▲');
       break;
 
-    case '&#9660':
+    case '▼':
       insertToTextarea(textarea, '▼');
       break;
 
