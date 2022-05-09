@@ -1,4 +1,5 @@
 export const insertToTextarea = (textarea, insertion) => {
+  textarea.focus();
   const newValue = textarea.value;
   const currentPosition = textarea.selectionStart;
 

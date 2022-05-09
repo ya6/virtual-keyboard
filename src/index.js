@@ -184,10 +184,13 @@ const keydownHandler = (e) => {
       break;
 
     case 'Tab':
+      e.preventDefault();
       findAndAddClass('Tab');
+      insertToTextarea(textarea, '\t');
       break;
 
     case 'AltLeft':
+      e.preventDefault();
       if (layout.leftAlt === 1) {
         break;
       }
@@ -196,6 +199,7 @@ const keydownHandler = (e) => {
       break;
 
     case 'AltRight':
+      e.preventDefault();
       if (layout.rightAlt === 1) {
         break;
       }
@@ -253,7 +257,6 @@ const keydownHandler = (e) => {
 
 const keyupHandler = (e) => {
   const currentKey = e.code;
-  // const currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
   switch (currentKey) {
     case 'ShiftLeft':
       layout.leftShift = 0;
@@ -383,11 +386,13 @@ const keyupHandler = (e) => {
       break;
 
     case 'AltLeft':
+      e.preventDefault();
       layout.leftAlt = 0;
       findAndRemoveClass(' Alt ');
       break;
 
     case 'AltRight':
+      e.preventDefault();
       layout.rightAlt = 0;
       findAndRemoveClass('Alt');
       break;
