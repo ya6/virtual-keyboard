@@ -1,4 +1,5 @@
-export class buttonComponent {
+/* eslint-disable class-methods-use-this */
+export default class ButtonComponent {
   setButton(content, addContent = null) {
     const button = document.createElement('button');
     button.className = 'keyboard__key';
@@ -7,8 +8,8 @@ export class buttonComponent {
 
     const additionContent = document.createElement('div');
     additionContent.className = 'keyboard__key_addition';
-    additionContent.textContent = addContent
-    button.append(additionContent)
+    additionContent.textContent = addContent;
+    button.append(additionContent);
     return button;
   }
 }

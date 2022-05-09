@@ -1,6 +1,6 @@
 export const textarea = (() => {
-  const textarea = document.createElement('textarea');
-  textarea.className = 'use-keyboard-input';
-  textarea.setAttribute("placeholder", "Virtual keyboard");
-  return textarea;
+  const textareaEl = document.createElement('textarea');
+  textareaEl.className = 'use-keyboard-input';
+  textareaEl.setAttribute('placeholder', 'Virtual keyboard');
+  return textareaEl;
 })();

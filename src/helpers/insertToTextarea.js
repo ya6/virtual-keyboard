@@ -1,20 +1,20 @@
 export const insertToTextarea = (textarea, insertion) => {
-  let newValue = textarea.value;
-  let currentPosition = textarea.selectionStart;
+  const newValue = textarea.value;
+  const currentPosition = textarea.selectionStart;
 
   const currentValueLeft = newValue.slice(
     0,
-    currentPosition
+    currentPosition,
   );
   const currentValueRight = newValue.slice(
     currentPosition,
-    newValue.length
+    newValue.length,
   );
-  textarea.value =
-    currentValueLeft + insertion + currentValueRight;
+  // eslint-disable-next-line no-param-reassign
+  textarea.value = currentValueLeft + insertion + currentValueRight;
 
   textarea.setSelectionRange(
     currentPosition + 1,
-    currentPosition + 1
+    currentPosition + 1,
   );
 };

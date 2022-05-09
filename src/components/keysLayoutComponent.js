@@ -1,8 +1,9 @@
-import { buttonComponent } from './buttonComponent';
+import ButtonComponent from './ButtonComponent';
 import { appendElemToDOM } from '../helpers/appendElemToDOM';
-const button = new buttonComponent
 
-export const keysLayoutComponent = (
+const button = new ButtonComponent();
+
+const keysLayoutComponent = (
   keyLayout,
   keyLayoutNumber,
 ) => {
@@ -12,7 +13,7 @@ export const keysLayoutComponent = (
 
   let keysArr = [];
   const spaceButton = ' ';
-  
+
   const LineBreak = ['Back space', 'Del', 'Enter', 'Shift'];
   const longButton = [
     // 'Backspace',
@@ -33,9 +34,10 @@ export const keysLayoutComponent = (
     '►',
     '◄',
   ];
-let count = 0;
-let addContent = null;
-const firstRow = 13;
+  let count = 0;
+  let addContent = null;
+  const firstRow = 13;
+  const firstLayout = 1;
   keyLayout.forEach((elem) => {
     if (
       longButton.some((el) => el === elem[keyLayoutNumber]) // long
@@ -44,9 +46,9 @@ const firstRow = 13;
         elem[keyLayoutNumber],
       );
       wideButton.classList.add('keyboard__key--wide');
-      if (longButton.some((el) => el === elem[keyLayoutNumber])) {
+      // if (longButton.some((el) => el === elem[keyLayoutNumber])) {
 
-      }
+      // }
       wideButton.setAttribute('data-name', elem[keyLayoutNumber]);
       keysArr.push(wideButton);
     } else if (elem[keyLayoutNumber] === spaceButton) { // space
@@ -57,22 +59,18 @@ const firstRow = 13;
       wideButton.setAttribute('data-name', elem[keyLayoutNumber]);
       keysArr.push(wideButton);
     } else {
-      let regularButton= null;
-      
-      if (count < firstRow) {     
-        addContent = elem[1]
-        regularButton = button.setButton(
-          elem[0], addContent
-        );
+      let regularButton = null;
 
-       } else {
-         addContent = null
-         regularButton = button.setButton(
-          elem[keyLayoutNumber], addContent
-        );}
-       
-       count++
-      
+      if (count < firstRow) {
+        addContent = elem[firstLayout];
+        regularButton = button.setButton(elem[0], addContent);
+      } else {
+        addContent = null;
+        regularButton = button.setButton(elem[keyLayoutNumber], addContent);
+      }
+
+      count += 1;
+
       regularButton.setAttribute('data-name', elem[keyLayoutNumber]);
       regularButton.setAttribute('data-enName', elem[0]);
       keysArr.push(regularButton); // all
@@ -96,3 +94,5 @@ const firstRow = 13;
 
   return keyboardKeys;
 };
+
+export { keysLayoutComponent };

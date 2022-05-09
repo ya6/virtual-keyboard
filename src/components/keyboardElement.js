@@ -1,5 +1,5 @@
 export const keyboard = (() => {
-  const keyboard = document.createElement('div');
-  keyboard.className = 'keyboard';
-  return keyboard;
+  const keyboardEl = document.createElement('div');
+  keyboardEl.className = 'keyboard';
+  return keyboardEl;
 })();

@@ -1,5 +1,5 @@
 export const app = (() => {
-  const app = document.createElement('div');
-  app.className = 'app';
-  return app;
+  const appEl = document.createElement('div');
+  appEl.className = 'app';
+  return appEl;
 })();
