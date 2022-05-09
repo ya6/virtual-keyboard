@@ -1,7 +1,15 @@
-.app {
+body {
+  background: rgb(240, 240, 240);
+}
+.app {position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -40%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 .use-keyboard-input {
   display: block;
@@ -17,8 +25,9 @@
     width: 80%;
   }
   @media (max-width: 768px) {
-    width: 95%;
+    width: 90%;
   }
+  
 }
 
 .keyboard {
@@ -70,7 +79,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  vertical-align: top;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
   position: relative;
@@ -87,6 +95,11 @@
   left: 10px;
   top: 5px;
   font-size: 12px;
+  @media (max-width:768px) {
+    left: 4px;
+    top: 4px;
+    font-size: 10px;
+  }
 }
 
 .keyboard__key:active {
@@ -124,21 +137,12 @@
 
 .keyboard__key--wide {
   flex-grow: 1;
-  // width: 12%;
   background:  #808080 ;
-  // background:  #292929 ;
 }
 
 .keyboard__key--extra-wide {
-  // width: 36%;
   flex-grow: 100;
    max-width: 1000px;
-}
-
-
-
-.keyboard__key--active::after {
-  background: #08ff00;
 }
 
 .keyboard__key--dark {
