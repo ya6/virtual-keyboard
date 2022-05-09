@@ -61,7 +61,7 @@ const keypressHandler = () => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-
+console.log(currentKey);
   switch (currentKey) {
     case 'ShiftLeft':
       if (layout.leftShift === 1) {
@@ -234,6 +234,10 @@ const keydownHandler = (e) => {
 
     case 'Space':
       findAndAddClass(' ');
+      break;
+
+    case 'Slash':
+      defaultFindAndAddClass('?');
       break;
 
     default:
@@ -422,6 +426,10 @@ const keyupHandler = (e) => {
 
     case 'Space':
       findAndRemoveClass(' ');
+      break;
+
+    case 'Slash':
+      defaultFindAndRemoveClass('?');
       break;
 
     default:
