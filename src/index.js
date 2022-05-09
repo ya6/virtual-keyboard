@@ -12,7 +12,10 @@ import { keysLayoutComponent } from './components/keysLayoutComponent';
 import { appendElemToDOM } from './helpers/appendElemToDOM';
 import { delElemFromDOM } from './helpers/delElemFromDOM';
 import { findAndAddClass } from './helpers/findAndAddClass';
+import { defaultFindAndAddClass } from './helpers/defaultFindAndAddClass';
 import { findAndRemoveClass } from './helpers/findAndRemoveClass';
+import { defaultFindAndRemoveClass } from './helpers/defaultFindAndRemoveClass';
+
 import { insertToTextarea } from './helpers/insertToTextarea';
 
 // INIT
@@ -58,7 +61,11 @@ const keypressHandler = () => {
 
 const keydownHandler = (e) => {
   const currentKey = e.code;
-  const currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
+  console.log(currentKey);
+  // let currentEngKey = null;
+  // if (currentKey[0] === 'K' || currentKey[0] === 'D') { // for keys and digits
+  //   currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
+  // }
 
   switch (currentKey) {
     case 'ShiftLeft':
@@ -226,18 +233,16 @@ const keydownHandler = (e) => {
       findAndAddClass('◄');
       break;
 
-    case 'ArrowRight':
-      findAndAddClass('►');
+    case 'Backslash':
+      defaultFindAndAddClass('|');
+      break;
+
+    case 'Space':
+      findAndAddClass(' ');
       break;
 
     default:
-
-      if (document
-        .querySelector(`[data-enName="${currentEngKey}"]`)) {
-        document
-          .querySelector(`[data-enName="${currentEngKey}"]`)
-          .classList.add('virtual__key--pressed');
-      }
+      defaultFindAndAddClass(e.key);
       break;
   }
 
@@ -250,7 +255,7 @@ const keydownHandler = (e) => {
 
 const keyupHandler = (e) => {
   const currentKey = e.code;
-  const currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
+  // const currentEngKey = currentKey[currentKey.length - 1].toLowerCase();
   switch (currentKey) {
     case 'ShiftLeft':
       layout.leftShift = 0;
@@ -416,15 +421,16 @@ const keyupHandler = (e) => {
       findAndRemoveClass('►');
       break;
 
-    default:
+    case 'Backslash':
+      defaultFindAndRemoveClass('|');
+      break;
 
-      if (
-        document
-          .querySelector(`[data-enName="${currentEngKey}"]`)) {
-        document
-          .querySelector(`[data-enName="${currentEngKey}"]`)
-          .classList.remove('virtual__key--pressed');
-      }
+    case 'Space':
+      findAndRemoveClass(' ');
+      break;
+
+    default:
+      defaultFindAndRemoveClass(e.key);
       break;
   }
 };

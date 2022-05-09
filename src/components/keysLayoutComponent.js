@@ -72,7 +72,10 @@ const keysLayoutComponent = (
       count += 1;
 
       regularButton.setAttribute('data-name', elem[keyLayoutNumber]);
-      regularButton.setAttribute('data-enName', elem[0]);
+      regularButton.setAttribute('data-layout0', elem[0]);
+      regularButton.setAttribute('data-layout1', elem[1]);
+      regularButton.setAttribute('data-layout2', elem[2]);
+      regularButton.setAttribute('data-layout3', elem[3]);
       keysArr.push(regularButton); // all
     }
 

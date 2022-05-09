@@ -2,8 +2,7 @@ export const findAndRemoveClass = (
   findEl,
   classToRemove = 'permanent-pressed',
 ) => {
-  const el = document.querySelector(
-    `[data-name="${findEl}"]`,
-  );
-  el.classList.remove(classToRemove);
+  if (document.querySelector(`[data-name="${findEl}"]`)) {
+    document.querySelector(`[data-name="${findEl}"]`).classList.remove(classToRemove);
+  }
 };
