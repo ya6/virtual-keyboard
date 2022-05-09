@@ -42,7 +42,6 @@ if (
 }
 
 appendElemToDOM(document.body, app);
-appendElemToDOM(document.body, app);
 appendElemToDOM(app, [textarea, keyboard, footer]);
 
 let keysContainer = keysLayoutComponent(
@@ -584,7 +583,7 @@ const clickHandler = (e) => {
       insertToTextarea(textarea, currentKey);
       break;
 
-    case '◄': // left
+    case '◄':
       if (textarea.selectionStart > 0) {
         textarea.setSelectionRange(
           textarea.selectionStart - 1,
